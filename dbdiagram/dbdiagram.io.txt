@@ -1,0 +1,50 @@
+/* Usuarios */
+Table Usuarios {
+  id_usuario int [pk, increment]
+  nombre varchar(100)
+  correo varchar(150) [unique]
+  pais varchar(50)
+}
+
+/* Géneros */
+Table Generos {
+  id_genero int [pk, increment]
+  nombre varchar(50)
+}
+
+/* Artistas */
+Table Artistas {
+  id_artista int [pk, increment]
+  nombre varchar(100)
+  id_genero int [ref: > Generos.id_genero]
+}
+
+/* Álbumes */
+Table Albumes {
+  id_album int [pk, increment]
+  titulo varchar(100)
+  id_artista int [ref: > Artistas.id_artista]
+  fecha_lanzamiento date
+}
+
+/* Canciones */
+Table Canciones {
+  id_cancion int [pk, increment]
+  titulo varchar(100)
+  id_album int [ref: > Albumes.id_album]
+  id_genero int [ref: > Generos.id_genero]
+  duracion_segundos int
+}
+
+/* Playlists */
+Table Playlists {
+  id_playlist int [pk, increment]
+  nombre varchar(100)
+  id_usuario int [ref: > Usuarios.id_usuario]
+  }
+
+/* Relación Playlist-Canciones */
+Table PlaylistCanciones {
+  id_playlist int [ref: > Playlists.id_playlist]
+  id_cancion int [ref: > Canciones.id_cancion]
+}
